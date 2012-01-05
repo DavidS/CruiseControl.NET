@@ -128,6 +128,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>if not "$(ConfigurationName)" == "Build" xcopy /Y "$(TargetPath)" "$(SolutionDir)console\bin\$(ConfigurationName)\"</PostBuildEvent>
+    <PostBuildEvent Condition=" '$(OS)' == 'Windows_NT' ">if not "$(ConfigurationName)" == "Build" xcopy /Y "$(TargetPath)" "$(SolutionDir)console\bin\$(ConfigurationName)\"</PostBuildEvent>
+    <PostBuildEvent Condition=" '$(OS)' != 'Windows_NT' ">if [ "$(ConfigurationName)" != "Build" ]; then cp -a "$(TargetPath)" "$(SolutionDir)console/bin/$(ConfigurationName)/"; fi</PostBuildEvent>
   </PropertyGroup>
 </Project>

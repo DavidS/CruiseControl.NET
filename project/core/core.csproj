@@ -1201,7 +1201,9 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>mkdir "$(TargetDir)xsl"
+    <PostBuildEvent Condition=" '$(OS)' == 'Windows_NT' ">mkdir "$(TargetDir)xsl"
 xcopy /q /y "$(SolutionDir)\xsl\*.*" "$(TargetDir)xsl"</PostBuildEvent>
+    <PostBuildEvent Condition=" '$(OS)' != 'Windows_NT' ">mkdir -p "$(TargetDir)xsl"
+cp -a "$(SolutionDir)/xsl"/* "$(TargetDir)xsl"</PostBuildEvent>
   </PropertyGroup>
 </Project>
